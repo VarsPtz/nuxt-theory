@@ -5,10 +5,12 @@
 <script>
   export default {
     validate({params}) {
-      // console.log(params)
+      // console.log({params})
+      // return true
+
       return /^\d+$/.test(params.id)
     }
   }
 </script>
 
-<!--validate(context)-->
+<!--validate(context) - validate({params})-->
