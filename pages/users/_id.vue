@@ -1,5 +1,10 @@
 <template>
-  <h1>{{ user.name }}</h1>
+  <div>
+    <h1>{{ user.name }}</h1>
+    <hr />
+    <b>{{ user.email }}</b>
+  </div>
+
 </template>
 
 <script>
@@ -7,17 +12,13 @@
     validate({params}) {
       return /^\d+$/.test(params.id)
     },
-    asyncData({params, error}) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          // resolve({
-          //   user: {
-          //     name: `Test user ${params.id}`
-          //   }
-          // })
-          reject(error(new Error('User not found')))
-        }, 1500)
-      })
+    async asyncData({params, error, $axios}) {
+      try {
+        const user = await $axios.$get(`https://jsonplaceholder.typicode.com/users/${params.id}`)
+        return {user}
+      } catch (e) {
+        error(e)
+      }
     }
   }
 </script>
