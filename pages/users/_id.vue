@@ -7,14 +7,15 @@
     validate({params}) {
       return /^\d+$/.test(params.id)
     },
-    asyncData({params}) {
-      return new Promise(resolve => {
+    asyncData({params, error}) {
+      return new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve({
-            user: {
-              name: `Test user ${params.id}`
-            }
-          })
+          // resolve({
+          //   user: {
+          //     name: `Test user ${params.id}`
+          //   }
+          // })
+          reject(error(new Error('User not found')))
         }, 1500)
       })
     }
