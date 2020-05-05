@@ -14,8 +14,8 @@
   export default {
     async asyncData({store, error}) {
       try {
-        const users = await store.dispatch('users/fetchUsers')
-        return {users}
+        await store.dispatch('users/fetchUsers')
+        return {}
       } catch (e) {
         error(e)
       }
@@ -23,6 +23,11 @@
     data() {
       return {
         pageTitle: 'Users page'
+      }
+    },
+    computed: {
+      users() {
+        return this.$store.getters['users/users']
       }
     },
     methods: {
